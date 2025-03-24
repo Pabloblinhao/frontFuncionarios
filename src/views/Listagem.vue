@@ -24,25 +24,30 @@
   </template>
   
   <script>
-  import Navbar from '../components/Navbar.vue';
-  import Footer from '../components/Footer.vue';
+  import Navbar from "../components/Navbar.vue";
+  import Footer from "../components/Footer.vue";
   
   export default {
     name: "Listagem",
     components: {
       Navbar,
-      Footer
+      Footer,
     },
     data() {
       return {
-        funcionarios: [], 
+        funcionarios: [],
       };
     },
-    mounted() {
+    created() {
       this.fetchFuncionarios();
     },
-    methods: {
+    watch: {
       
+      $route() {
+        this.fetchFuncionarios();
+      },
+    },
+    methods: {
       fetchFuncionarios() {
         fetch("http://localhost/backFuncionarios/index.php?action=listarFuncionarios")
           .then((response) => response.json())
@@ -55,7 +60,7 @@
   };
   </script>
   
-  <style scoped>
+  <style>
   h1 {
     text-align: center;
     margin-bottom: 1rem;
